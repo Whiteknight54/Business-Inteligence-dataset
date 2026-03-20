@@ -2,7 +2,45 @@
 
 A curated collection of business intelligence datasets designed for easy analysis with **Google Colab**, Jupyter, Power BI, Tableau, and any other tool that can read a CSV from a URL.
 
+The primary data source is a **Google Drive folder** — this repository provides the structure, documentation, catalog, and ready-to-run notebooks to analyse that data without downloading anything manually.
+
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Whiteknight54/Business-iInteligence-dataset/blob/main/notebooks/getting_started.ipynb)
+[![Drive Access Notebook](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Whiteknight54/Business-iInteligence-dataset/blob/main/notebooks/google_drive_access.ipynb)
+
+---
+
+## ☁️ Google Drive Data Source
+
+| Property | Value |
+|----------|-------|
+| **Folder** | Business Intelligence Datasets |
+| **Folder ID** | `1hp5KzLCTRb2V7ZjHPsFw_WAjUEU6m53i` |
+| **Link** | https://drive.google.com/drive/folders/1hp5KzLCTRb2V7ZjHPsFw_WAjUEU6m53i?usp=sharing |
+
+The Drive folder is the **source of truth** for large or live datasets. This repository provides the Git-managed layer on top:
+
+```
+Google Drive folder  ──────►  Colab / pandas  ──────►  GitHub repo
+(raw data files)              (notebooks)              (docs, catalog, sample CSVs)
+```
+
+### Accessing Drive data in three lines (Colab)
+
+```python
+from google.colab import drive
+drive.mount('/content/drive')
+df = pd.read_csv('/content/drive/MyDrive/Business Intelligence Datasets/Sales/sales_data.csv')
+```
+
+### Accessing a Drive file by direct URL (anywhere)
+
+```python
+import pandas as pd
+file_id = "YOUR_DRIVE_FILE_ID"   # from gdrive/catalog.json
+df = pd.read_csv(f"https://drive.google.com/uc?export=download&id={file_id}")
+```
+
+See [`gdrive/catalog.json`](gdrive/catalog.json) for the file IDs of every dataset and [`gdrive/README.md`](gdrive/README.md) for full instructions.
 
 ---
 
@@ -10,14 +48,19 @@ A curated collection of business intelligence datasets designed for easy analysi
 
 ```
 datasets/
-├── sales/           sales_data.csv          – 100 sales transactions
-├── customers/       customer_data.csv       – 50 customer profiles
-├── finance/         financial_data.csv      – 11 quarters of P&L & cash flow
-├── marketing/       marketing_data.csv      – 29 campaign performance records
-└── supply_chain/    supply_chain_data.csv   – 50 procurement & inventory orders
+├── sales/           sales_data.csv          – 100 sales transactions (sample)
+├── customers/       customer_data.csv       – 50 customer profiles (sample)
+├── finance/         financial_data.csv      – 11 quarters of P&L & cash flow (sample)
+├── marketing/       marketing_data.csv      – 29 campaign performance records (sample)
+└── supply_chain/    supply_chain_data.csv   – 50 procurement & inventory orders (sample)
+
+gdrive/
+├── README.md        – How to work with the Google Drive folder
+└── catalog.json     – Machine-readable file catalog (Drive file IDs + GitHub fallbacks)
 
 notebooks/
-└── getting_started.ipynb   – Interactive Colab/Jupyter starter notebook
+├── getting_started.ipynb       – Load sample CSVs from GitHub
+└── google_drive_access.ipynb   – Load data from the Google Drive folder
 ```
 
 ---
@@ -147,43 +190,58 @@ https://raw.githubusercontent.com/Whiteknight54/Business-iInteligence-dataset/ma
 
 ## 🚀 Quick Start
 
-### Option 1 – Open the starter notebook in Google Colab
+### Option 1 – Open the Google Drive access notebook in Colab (recommended)
 
-Click the badge at the top of this page, or use the direct link:
+This notebook automatically mounts your Drive and loads the real datasets from the Drive folder above, falling back to GitHub sample CSVs if Drive is unavailable:
 
-[**Open Getting Started Notebook in Colab**](https://colab.research.google.com/github/Whiteknight54/Business-iInteligence-dataset/blob/main/notebooks/getting_started.ipynb)
+[**📂 Open Google Drive Access Notebook in Colab**](https://colab.research.google.com/github/Whiteknight54/Business-iInteligence-dataset/blob/main/notebooks/google_drive_access.ipynb)
 
-### Option 2 – Load any dataset with pandas (one line)
+### Option 2 – Open the sample-data starter notebook
+
+[**📊 Open Getting Started Notebook in Colab**](https://colab.research.google.com/github/Whiteknight54/Business-iInteligence-dataset/blob/main/notebooks/getting_started.ipynb)
+
+### Option 3 – Mount Drive and load data in two lines (Colab)
+
+```python
+from google.colab import drive
+drive.mount('/content/drive')
+
+import pandas as pd
+sales = pd.read_csv('/content/drive/MyDrive/Business Intelligence Datasets/Sales/sales_data.csv')
+```
+
+### Option 4 – Load a Drive file by direct URL (no mount needed)
 
 ```python
 import pandas as pd
 
-# Sales
-sales = pd.read_csv('https://raw.githubusercontent.com/Whiteknight54/Business-iInteligence-dataset/main/datasets/sales/sales_data.csv', parse_dates=['order_date'])
-
-# Customers
-customers = pd.read_csv('https://raw.githubusercontent.com/Whiteknight54/Business-iInteligence-dataset/main/datasets/customers/customer_data.csv')
-
-# Finance
-finance = pd.read_csv('https://raw.githubusercontent.com/Whiteknight54/Business-iInteligence-dataset/main/datasets/finance/financial_data.csv')
-
-# Marketing
-marketing = pd.read_csv('https://raw.githubusercontent.com/Whiteknight54/Business-iInteligence-dataset/main/datasets/marketing/marketing_data.csv')
-
-# Supply Chain
-supply_chain = pd.read_csv('https://raw.githubusercontent.com/Whiteknight54/Business-iInteligence-dataset/main/datasets/supply_chain/supply_chain_data.csv')
+# Replace with the actual file ID from gdrive/catalog.json
+file_id = "YOUR_DRIVE_FILE_ID"
+df = pd.read_csv(f"https://drive.google.com/uc?export=download&id={file_id}")
 ```
 
-### Option 3 – Connect from Power BI, Tableau, or Looker Studio
+### Option 5 – Load GitHub sample CSVs (no Drive access needed)
 
-Use the raw CSV URL directly as a **Web data source**:
+```python
+import pandas as pd
+
+BASE = 'https://raw.githubusercontent.com/Whiteknight54/Business-iInteligence-dataset/main/datasets'
+
+sales        = pd.read_csv(f'{BASE}/sales/sales_data.csv',              parse_dates=['order_date'])
+customers    = pd.read_csv(f'{BASE}/customers/customer_data.csv')
+finance      = pd.read_csv(f'{BASE}/finance/financial_data.csv')
+marketing    = pd.read_csv(f'{BASE}/marketing/marketing_data.csv')
+supply_chain = pd.read_csv(f'{BASE}/supply_chain/supply_chain_data.csv')
+```
+
+### Option 6 – Connect from Power BI, Tableau, or Looker Studio
 
 | Tool | How to connect |
 |------|----------------|
-| **Power BI** | Get Data → Web → paste raw CSV URL |
+| **Power BI** | Get Data → Web → paste raw CSV URL or Drive download URL |
 | **Tableau** | Connect → To a Server → Web Data Connector (or Text File via URL) |
-| **Looker Studio** | Add data → CSV file upload *or* use Google Sheets → `=IMPORTDATA("url")` |
-| **Google Sheets** | `=IMPORTDATA("https://raw.githubusercontent.com/...")` in cell A1 |
+| **Looker Studio** | Add data → Google Drive (directly) or CSV URL |
+| **Google Sheets** | `=IMPORTDATA("https://drive.google.com/uc?export=download&id=FILE_ID")` |
 
 ---
 
@@ -197,15 +255,25 @@ Use the raw CSV URL directly as a **Web data source**:
 
 ---
 
-## 🔗 All Raw Dataset URLs
+## 🔗 All Access URLs
 
-| Dataset | Raw URL |
-|---------|---------|
+### GitHub sample CSVs (always available)
+
+| Dataset | Raw GitHub URL |
+|---------|----------------|
 | Sales | `https://raw.githubusercontent.com/Whiteknight54/Business-iInteligence-dataset/main/datasets/sales/sales_data.csv` |
 | Customers | `https://raw.githubusercontent.com/Whiteknight54/Business-iInteligence-dataset/main/datasets/customers/customer_data.csv` |
 | Finance | `https://raw.githubusercontent.com/Whiteknight54/Business-iInteligence-dataset/main/datasets/finance/financial_data.csv` |
 | Marketing | `https://raw.githubusercontent.com/Whiteknight54/Business-iInteligence-dataset/main/datasets/marketing/marketing_data.csv` |
 | Supply Chain | `https://raw.githubusercontent.com/Whiteknight54/Business-iInteligence-dataset/main/datasets/supply_chain/supply_chain_data.csv` |
+
+### Google Drive folder
+
+| Resource | Link |
+|----------|------|
+| **Drive folder** | https://drive.google.com/drive/folders/1hp5KzLCTRb2V7ZjHPsFw_WAjUEU6m53i?usp=sharing |
+| **File catalog** | [`gdrive/catalog.json`](gdrive/catalog.json) — fill in `file_id` values after uploading to Drive |
+| **Drive notebook** | [Open in Colab](https://colab.research.google.com/github/Whiteknight54/Business-iInteligence-dataset/blob/main/notebooks/google_drive_access.ipynb) |
 
 ---
 

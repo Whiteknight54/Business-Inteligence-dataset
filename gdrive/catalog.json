@@ -1,0 +1,88 @@
+{
+  "_comment": "Machine-readable catalog of files inside the Google Drive folder. Update file_id values after uploading datasets to Drive.",
+  "drive_folder": {
+    "name": "Business Intelligence Datasets",
+    "folder_id": "1hp5KzLCTRb2V7ZjHPsFw_WAjUEU6m53i",
+    "url": "https://drive.google.com/drive/folders/1hp5KzLCTRb2V7ZjHPsFw_WAjUEU6m53i?usp=sharing"
+  },
+  "datasets": [
+    {
+      "name": "Sales Data",
+      "description": "Sales transactions with product, region, sales rep, revenue, and profit detail.",
+      "folder": "Sales",
+      "filename": "sales_data.csv",
+      "file_id": "REPLACE_WITH_FILE_ID",
+      "download_url": "https://drive.google.com/uc?export=download&id=REPLACE_WITH_FILE_ID",
+      "columns": [
+        "order_id", "order_date", "customer_id", "product_id", "product_name",
+        "category", "region", "sales_rep", "quantity", "unit_price",
+        "discount", "revenue", "profit"
+      ],
+      "github_fallback": "https://raw.githubusercontent.com/Whiteknight54/Business-iInteligence-dataset/main/datasets/sales/sales_data.csv"
+    },
+    {
+      "name": "Customer Data",
+      "description": "Customer profiles with demographics, segment, CLV, loyalty tier, and acquisition channel.",
+      "folder": "Customers",
+      "filename": "customer_data.csv",
+      "file_id": "REPLACE_WITH_FILE_ID",
+      "download_url": "https://drive.google.com/uc?export=download&id=REPLACE_WITH_FILE_ID",
+      "columns": [
+        "customer_id", "first_name", "last_name", "email", "phone",
+        "country", "city", "age", "gender", "segment",
+        "acquisition_channel", "first_purchase_date", "total_orders",
+        "total_revenue", "average_order_value", "clv_score",
+        "loyalty_tier", "last_active_date"
+      ],
+      "github_fallback": "https://raw.githubusercontent.com/Whiteknight54/Business-iInteligence-dataset/main/datasets/customers/customer_data.csv"
+    },
+    {
+      "name": "Financial Data",
+      "description": "Quarterly P&L, EBITDA, cash flow, and balance-sheet metrics.",
+      "folder": "Finance",
+      "filename": "financial_data.csv",
+      "file_id": "REPLACE_WITH_FILE_ID",
+      "download_url": "https://drive.google.com/uc?export=download&id=REPLACE_WITH_FILE_ID",
+      "columns": [
+        "period", "year", "quarter", "month", "total_revenue",
+        "cost_of_goods_sold", "gross_profit", "gross_margin_pct",
+        "operating_expenses", "ebitda", "net_income", "net_margin_pct",
+        "free_cash_flow", "total_assets", "equity"
+      ],
+      "github_fallback": "https://raw.githubusercontent.com/Whiteknight54/Business-iInteligence-dataset/main/datasets/finance/financial_data.csv"
+    },
+    {
+      "name": "Marketing Data",
+      "description": "Marketing campaign performance including spend, impressions, ROAS, and pipeline.",
+      "folder": "Marketing",
+      "filename": "marketing_data.csv",
+      "file_id": "REPLACE_WITH_FILE_ID",
+      "download_url": "https://drive.google.com/uc?export=download&id=REPLACE_WITH_FILE_ID",
+      "columns": [
+        "campaign_id", "campaign_name", "channel", "start_date", "end_date",
+        "target_segment", "budget_usd", "spend_usd", "impressions", "clicks",
+        "ctr_pct", "conversions", "conversion_rate_pct", "cost_per_click",
+        "cost_per_conversion", "revenue_generated", "roas",
+        "leads_generated", "mqls", "sqls", "avg_deal_size", "campaign_status"
+      ],
+      "github_fallback": "https://raw.githubusercontent.com/Whiteknight54/Business-iInteligence-dataset/main/datasets/marketing/marketing_data.csv"
+    },
+    {
+      "name": "Supply Chain Data",
+      "description": "Procurement orders with supplier, inventory, lead time, and delivery quality metrics.",
+      "folder": "Supply Chain",
+      "filename": "supply_chain_data.csv",
+      "file_id": "REPLACE_WITH_FILE_ID",
+      "download_url": "https://drive.google.com/uc?export=download&id=REPLACE_WITH_FILE_ID",
+      "columns": [
+        "order_id", "order_date", "supplier_id", "supplier_name", "supplier_country",
+        "product_id", "product_name", "category", "sku",
+        "warehouse_id", "warehouse_location", "quantity_ordered", "quantity_received",
+        "unit_cost", "total_cost", "lead_time_days", "on_time_delivery",
+        "quality_pass_rate", "stock_on_hand", "reorder_point",
+        "max_stock_level", "days_of_inventory", "stockout_occurred"
+      ],
+      "github_fallback": "https://raw.githubusercontent.com/Whiteknight54/Business-iInteligence-dataset/main/datasets/supply_chain/supply_chain_data.csv"
+    }
+  ]
+}
